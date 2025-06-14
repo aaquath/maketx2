@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Компания</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav {
+            background: #333;
+            padding: 1rem;
+        }
+        
+        nav button {
+            color: white;
+            background: transparent;
+            border: none;
+            margin-right: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        nav button:hover {
+            background: #555;
+        }
+        
+        .page {
+            display: none;
+            padding: 2rem;
+        }
+        
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <button onclick="showPage('home')">Главная</button>
+            <button onclick="showPage('contacts')">Контакты</button>
+        </nav>
+    </header>
+    
+    <main>
+        <div id="home" class="page active">
+            <h1>Добро пожаловать!</h1>
+            <p>Основной контент главной страницы...</p>
+        </div>
+        
+        <div id="contacts" class="page">
+            <h1>Наши контакты</h1>
+            <p>Телефон: +7 (123) 456-78-90</p>
+            <p>Email: contact@company.com</p>
+            <p>Адрес: Москва, ул. Примерная, д. 1</p>
+        </div>
+    </main>
+
+    <script>
+        function showPage(pageId) {
+            // Скрыть все страницы
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Показать выбранную страницу
+            document.getElementById(pageId).classList.add('active');
+            
+            // Обновляем URL в адресной строке
+            history.pushState(null, null, `#${pageId}`);
+        }
+
+        // При загрузке страницы проверяем хеш в URL
+        window.addEventListener('DOMContentLoaded', () => {
+            const pageId = window.location.hash.substring(1) || 'home';
+            showPage(pageId);
+        });
+    </script>
+</body>
+</html>
